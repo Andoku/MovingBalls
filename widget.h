@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QTimer>
 
-#include <ball.h>
+#include "ball.h"
 #include "myscene.h"
 
 namespace Ui {

@@ -1,9 +1,11 @@
+#include <QCursor>
+#include <QPainter>
+
 #include "ball.h"
 #include "utils.h"
 
-Ball::Ball(QPointF pos, QPointF V, QObject *parent) :
-    QObject(parent),
-    QGraphicsItem(),
+Ball::Ball(QPointF pos, QPointF V, QGraphicsItem *parent) :
+    QGraphicsItem(parent),
     xy(pos),
     V(V),
     updateTime(std::chrono::system_clock::now())
@@ -14,9 +16,6 @@ Ball::Ball(QPointF pos, QPointF V, QObject *parent) :
     color = QColor(r, g, b);
     this->setPos(xy);
 }
-
-Ball::~Ball()
-{}
 
 void Ball::setState(QPointF pos, QPointF V)
 {

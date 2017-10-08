@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <chrono>
 

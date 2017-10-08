@@ -1,5 +1,7 @@
 # MovingBalls
 
+![screenshot](https://1.downloader.disk.yandex.ru/disk/7968c5f524020b6f0e15c336767efed053a70a9e0ef4d49269967d3d2eb0bf2c/59da373d/3YpPXXnLk-IsHNNONA-Vgy49dUmFNTI3tMPcDNKPbUSBHarV7rp4ZLCb5J6ibmvsokjipWz5R1L50kiu13mhvg%3D%3D?uid=0&filename=Screen%20Shot%202017-10-08%20at%2013.32.07.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&fsize=53758&hid=280c0577bda32dba065f44c3e65bd708&media_type=image&tknv=v2&etag=897436cbbf1cffed573aaba09591b401)
+
 ### Задача: 
 
 Необходимо написать программу на **C++** с использованием **Qt**, которая в окне показывает симуляцию движения **N** шариков. Шарики притягиваются друг к другу с силой:

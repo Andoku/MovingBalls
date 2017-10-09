@@ -12,18 +12,18 @@ public:
 
     void setState(QPointF pos, QPointF V = QPointF(0, 0));
     void getState(QPointF *pos, QPointF *V);
-    std::chrono::system_clock::time_point getTime();
 
 protected:
     void advance(int step) override;
 private:
     QPointF xy;
     QPointF V;
-    std::chrono::system_clock::time_point updateTime;
+
     std::mutex stateMutex;
 
     QColor color;
 
+    QPainterPath shape() const;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);

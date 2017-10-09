@@ -7,8 +7,7 @@
 Ball::Ball(QPointF pos, QPointF V, QGraphicsItem *parent) :
     QGraphicsItem(parent),
     xy(pos),
-    V(V),
-    updateTime(std::chrono::system_clock::now())
+    V(V)
 {
     const int r = randomBetween(0, 255);
     const int g = randomBetween(0, 255);
@@ -22,7 +21,6 @@ void Ball::setState(QPointF pos, QPointF V)
     std::lock_guard<std::mutex> lock(stateMutex);
     this->xy = pos;
     this->V = V;
-    updateTime = std::chrono::system_clock::now();
 }
 
 void Ball::getState(QPointF *pos, QPointF *V)
@@ -32,10 +30,11 @@ void Ball::getState(QPointF *pos, QPointF *V)
     *V = this->V;
 }
 
-std::chrono::system_clock::time_point Ball::getTime()
+QPainterPath Ball::shape() const
 {
-    std::lock_guard<std::mutex> lock(stateMutex);
-    return updateTime;
+    QPainterPath path;
+    path.addEllipse(boundingRect());
+    return path;
 }
 
 QRectF Ball::boundingRect() const

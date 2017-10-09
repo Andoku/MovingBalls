@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <vector>
 #include <thread>
+#include <atomic>
 
 #include "ball.h"
 

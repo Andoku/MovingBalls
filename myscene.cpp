@@ -59,7 +59,13 @@ void MyScene::updateBalls()
 {
     std::lock_guard<std::mutex> lock(ballsMutex);
     qDebug() << "=======================";
+    static auto updateTime = std::chrono::system_clock::now();
+    std::vector<QPointF[2]> newBalls(balls.size());
     for(size_t i = 0; i < balls.size(); ++i) {
+        auto collisions = collidingItems(balls[i]);
+        if(!collisions.empty()) {
+            qDebug() << "collision";
+        }
         QPointF xy1;
         QPointF V1;
         balls[i]->getState(&xy1, &V1);
@@ -82,17 +88,23 @@ void MyScene::updateBalls()
             ay += F * sin(alpha);
         }
 
-        auto lastUpdate = balls[i]->getTime();
         auto currentTime = std::chrono::system_clock::now();
-        double t = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastUpdate).count();
+        double t = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - updateTime).count();
 
         QPointF xy;
         xy.setX(xy1.rx() + V1.rx()*t + ax*t*t/2);
         xy.setY(xy1.ry() + V1.ry()*t + ay*t*t/2);
         QPointF V(V1.rx() + ax*t, V1.ry() + ay*t);
 
-        balls[i]->setState(xy, V);
+        newBalls[i][0] = xy;
+        newBalls[i][1] = V;
     }
+
+    for(size_t i = 0; i < balls.size(); ++i) {
+        balls[i]->setState(newBalls[i][0], newBalls[i][1]);
+    }
+
+    updateTime = std::chrono::system_clock::now();
 }
 
 void MyScene::physicsThread()

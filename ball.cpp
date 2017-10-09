@@ -30,6 +30,13 @@ void Ball::getState(QPointF *pos, QPointF *V)
     *V = this->V;
 }
 
+QPainterPath Ball::shape() const
+{
+    QPainterPath path;
+    path.addEllipse(boundingRect());
+    return path;
+}
+
 QRectF Ball::boundingRect() const
 {
     return QRectF(-30, -30, 60, 60);

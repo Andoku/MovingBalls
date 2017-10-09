@@ -8,8 +8,7 @@
 MyScene::MyScene(QObject *parent) :
     QGraphicsScene(parent),
     running(true),
-    t(&MyScene::physicsThread, this)
-{}
+    t(&MyScene::physicsThread, this) {}
 
 MyScene::~MyScene()
 {

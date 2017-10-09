@@ -63,6 +63,10 @@ void MyScene::updateBalls()
     static auto updateTime = std::chrono::system_clock::now();
     std::vector<QPointF[2]> newBalls(balls.size());
     for(size_t i = 0; i < balls.size(); ++i) {
+        auto collisions = collidingItems(balls[i]);
+        if(!collisions.empty()) {
+            qDebug() << "collision";
+        }
         QPointF xy1;
         QPointF V1;
         balls[i]->getState(&xy1, &V1);

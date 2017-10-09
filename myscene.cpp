@@ -60,7 +60,7 @@ void MyScene::updateBalls()
     std::lock_guard<std::mutex> lock(ballsMutex);
     qDebug() << "=======================";
     static auto updateTime = std::chrono::system_clock::now();
-    std::vector<QPointF[2]> newBalls(balls.size());
+    std::vector< std::vector<QPointF> > newBalls(balls.size());
     for(size_t i = 0; i < balls.size(); ++i) {
         auto collisions = collidingItems(balls[i]);
         if(!collisions.empty()) {
@@ -96,8 +96,8 @@ void MyScene::updateBalls()
         xy.setY(xy1.ry() + V1.ry()*t + ay*t*t/2);
         QPointF V(V1.rx() + ax*t, V1.ry() + ay*t);
 
-        newBalls[i][0] = xy;
-        newBalls[i][1] = V;
+        newBalls[i].push_back(xy);
+        newBalls[i].push_back(V);
     }
 
     for(size_t i = 0; i < balls.size(); ++i) {

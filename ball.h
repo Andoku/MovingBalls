@@ -11,13 +11,16 @@ public:
     Ball(QPointF pos, QPointF V = QPointF(0, 0), QGraphicsItem *parent = 0);
 
     void setState(QPointF pos, QPointF V = QPointF(0, 0));
-    void getState(QPointF *pos, QPointF *V);
+    QPointF getPos();
+    QPointF getV();
+    qreal getRadius();
 
 protected:
     void advance(int step) override;
 private:
     QPointF xy;
     QPointF V;
+    qreal radius;
 
     std::mutex stateMutex;
 

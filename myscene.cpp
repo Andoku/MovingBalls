@@ -61,7 +61,7 @@ void MyScene::updateBalls()
 
     std::lock_guard<std::mutex> lock(ballsMutex);
     static auto updateTime = std::chrono::system_clock::now();
-    std::vector< std::vector<QPointF> > newBalls(balls.size());
+    std::vector< std::vector<QPointF> > newBalls;
     for(size_t i = 0; i < balls.size(); ++i) {
         QPointF xy1 = balls[i]->getPos();
         QPointF V1 = balls[i]->getV();
@@ -90,8 +90,7 @@ void MyScene::updateBalls()
         xy.setY(xy1.ry() + V1.ry()*t + ay*t*t/2);
         QPointF V(V1.rx() + ax*t, V1.ry() + ay*t);
 
-        newBalls[i].push_back(xy);
-        newBalls[i].push_back(V);
+        newBalls.push_back({xy, V});
     }
 
     for(size_t i = 0; i < balls.size(); ++i) {

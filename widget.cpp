@@ -44,6 +44,7 @@ void Widget::on_pushButton_clicked()
     const int numberOfCircles = randomBetween(minNumberOfCircles, maxNumberOfCircles);
 
     for(int i = 0; i < numberOfCircles; ++i) {
-        scene->addBall(randomBetween(30, 470), randomBetween(30, 470));
+        QPointF pos(randomBetween(30, 470), randomBetween(30, 470));
+        scene->addBall(pos);
     }
 }

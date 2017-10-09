@@ -14,8 +14,21 @@ public:
     MyScene(QObject *parent = Q_NULLPTR);
     ~MyScene();
 
-    void addBall(qreal x, qreal y);
+    /**
+     * @brief Добавить новый шарик
+     * @param[in] pos координаты нового шарика
+     */
+    void addBall(QPointF pos);
+
+    /**
+     * @brief Удалить шарик
+     * @param[in] ball указатель на шарик, которые надо удалить
+     */
     void removeBall(Ball *ball);
+
+    /**
+     * @brief Удалить все шарики
+     */
     void removeAllBalls();
 
 protected:

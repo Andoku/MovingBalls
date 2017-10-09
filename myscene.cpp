@@ -26,17 +26,17 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(ball) {
             removeBall(ball);
         } else {
-            addBall(mouseEvent->scenePos().rx(), mouseEvent->scenePos().ry());
+            addBall(mouseEvent->scenePos());
         }
     } else {
         QGraphicsScene::mousePressEvent(mouseEvent);
     }
 }
 
-void MyScene::addBall(qreal x, qreal y)
+void MyScene::addBall(QPointF pos)
 {
     std::lock_guard<std::mutex> lock(ballsMutex);
-    balls.push_back(new Ball(QPointF(x, y)));
+    balls.push_back(new Ball(pos));
     addItem(balls.back());
 }
 
@@ -60,7 +60,6 @@ void MyScene::updateBalls()
     const int k = 1000;
 
     std::lock_guard<std::mutex> lock(ballsMutex);
-    //qDebug() << "=======================";
     static auto updateTime = std::chrono::system_clock::now();
     std::vector< std::vector<QPointF> > newBalls(balls.size());
     for(size_t i = 0; i < balls.size(); ++i) {
@@ -68,7 +67,6 @@ void MyScene::updateBalls()
         QPointF V1 = balls[i]->getV();
 
         qreal radius = balls[i]->getRadius() * k;
-        //qDebug() << i << ": " << xy1 << " " << V1;
         qreal ax = 0;
         qreal ay = 0;
         for(size_t j = 0; j < balls.size(); ++j) {
@@ -76,8 +74,6 @@ void MyScene::updateBalls()
                 continue;
 
             QPointF xy2 = balls[j]->getPos();
-            QPointF V2 = balls[j]->getV();
-
             qreal r = distance(xy1, xy2) * k;
             qreal F = (r <= radius) ? (1/radius - 1/(radius*radius)): (1/r - 1/(r*r));
             QPointF xy = xy2 - xy1;
